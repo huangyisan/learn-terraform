@@ -61,3 +61,4 @@ provider "registry.terraform.io/hashicorp/random" {
 1. 如果后期出了符合需求版本的新的版本,可以使用`terraform init -upgrade`命令进行更新. 更新完成后,会将新版本写入至`.terraform.lock.hcl`
 2. 如果修改了terraform层级块的版本,使其比原先低,则也可以通过`-upgrade`参数进行降级.
 
+
