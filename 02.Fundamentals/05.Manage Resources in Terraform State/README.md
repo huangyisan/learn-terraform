@@ -36,3 +36,17 @@ $ terraform apply -replace="aws_instance.example"
 
 ```
 9. 使用带-replace标志的terraform apply命令是hashicorp推荐的管理资源的过程，无需手动编辑状态文件.
+
+## Move a resource to a different state file
+1. `terraform state mv`命令,可以将资源状态迁移到另外一个状态文件中.
+2. 当您希望组合来自其他状态的模块或资源，但又不想破坏和重新创建基础设施时，移动资源是很有用的.
+3. 比如当前目录new_state路径下面有一个aws_instance.example_new资源. 将主目录的terraform.tfvars复制到里面,然后进行`terraform init`操作, `terraform apply`, 此时新的状态写入了state文件中.
+4. 使用命令`terraform state mv -state-out=../terraform.tfstate aws_instance.example_new aws_instance.example_new` 将新创建的资源移动的老的state文件中. 注意移动进去的资源, 必须先前是不存在同名的.
+5. 返回上一层,发现资源已经被添加进去了
+```shell
+$ terrform state list
+data.aws_ami.ubuntu
+aws_instance.example
+aws_instance.example_new
+aws_security_group.sg_8080
+```
